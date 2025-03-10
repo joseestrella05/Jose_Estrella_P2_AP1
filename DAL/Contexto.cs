@@ -7,6 +7,8 @@ public class Contexto(DbContextOptions<Contexto> options) : DbContext(options)
 {
     public virtual DbSet<Encuestas> Encuestas { get; set; }
     public virtual DbSet<Ciudades> Ciudades { get; set; }
+
+    public virtual DbSet<EncuestaDestalles> Destalles { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Ciudades>().HasData(
