@@ -5,6 +5,7 @@ namespace Jose_Estrella_P2_AP1.DAL;
 
 public class Contexto(DbContextOptions<Contexto> options) : DbContext(options)
 {
+    public virtual DbSet<Encuestas> Encuestas { get; set; }
     public virtual DbSet<Ciudades> Ciudades { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
