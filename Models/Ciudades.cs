@@ -10,4 +10,6 @@ public class Ciudades
     public string? Nombre { get; set; }
 
     public int Monto { get; set; }
+
+
 }
