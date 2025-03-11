@@ -1,7 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Jose_Estrella_P2_AP1.Models;
+﻿using Jose_Estrella_P2_AP1.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class Encuestas
 {
@@ -15,11 +13,4 @@ public class Encuestas
     public string? Asignatura { get; set; }
 
     public virtual ICollection<EncuestaDestalles> EncuestaDetalles { get; set; } = new List<EncuestaDestalles>();
-    public int CiudadId { get; set; }
-    [ForeignKey("CiudadId")]
-    public virtual Ciudades Ciudad { get; set; } = null!;
-
-    
-
-
 }

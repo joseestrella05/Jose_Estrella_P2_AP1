@@ -1,4 +1,4 @@
-﻿@page "/Index/Encuesta"
+﻿@page "/Encuesta/Index"
 @inject EncuestaServices EncuestaServices
 @inject NavigationManager NavigationManager
 
@@ -75,7 +75,6 @@
                         <th>Id</th>
                         <th>Fecha</th>
                         <th>Asignatura</th>
-                        <th>Monto</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -87,7 +86,6 @@
                             <td>@encuesta.EncuestasId</td>
                             <td>@encuesta.Fecha</td>
                             <td>@encuesta.Asignatura</td>
-                            <td>@encuesta.Ciudad.Monto.ToString("N2")</td>
                             <td class="text-center">
                                 <a href="/Ingreso/Edit/@encuesta.EncuestasId" class="btn btn-outline-primary bi bi-pencil-square"></a>
                             </td>

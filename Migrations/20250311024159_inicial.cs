@@ -34,18 +34,11 @@ namespace Jose_Estrella_P2_AP1.Migrations
                     EncuestasId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Asignatura = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CiudadId = table.Column<int>(type: "int", nullable: false)
+                    Asignatura = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Encuestas", x => x.EncuestasId);
-                    table.ForeignKey(
-                        name: "FK_Encuestas_Ciudades_CiudadId",
-                        column: x => x.CiudadId,
-                        principalTable: "Ciudades",
-                        principalColumn: "CiudadesId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,17 +49,23 @@ namespace Jose_Estrella_P2_AP1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EncuestaId = table.Column<int>(type: "int", nullable: false),
                     CiudadId = table.Column<int>(type: "int", nullable: false),
-                    MontoEncuesta = table.Column<int>(type: "int", nullable: false)
+                    MontoEncuesta = table.Column<int>(type: "int", nullable: false),
+                    EncuestasId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Destalles", x => x.DestallesId);
                     table.ForeignKey(
-                        name: "FK_Destalles_Encuestas_EncuestaId",
-                        column: x => x.EncuestaId,
-                        principalTable: "Encuestas",
-                        principalColumn: "EncuestasId",
+                        name: "FK_Destalles_Ciudades_CiudadId",
+                        column: x => x.CiudadId,
+                        principalTable: "Ciudades",
+                        principalColumn: "CiudadesId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Destalles_Encuestas_EncuestasId",
+                        column: x => x.EncuestasId,
+                        principalTable: "Encuestas",
+                        principalColumn: "EncuestasId");
                 });
 
             migrationBuilder.InsertData(
@@ -80,14 +79,14 @@ namespace Jose_Estrella_P2_AP1.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Destalles_EncuestaId",
+                name: "IX_Destalles_CiudadId",
                 table: "Destalles",
-                column: "EncuestaId");
+                column: "CiudadId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Encuestas_CiudadId",
-                table: "Encuestas",
-                column: "CiudadId");
+                name: "IX_Destalles_EncuestasId",
+                table: "Destalles",
+                column: "EncuestasId");
         }
 
         /// <inheritdoc />
@@ -97,10 +96,10 @@ namespace Jose_Estrella_P2_AP1.Migrations
                 name: "Destalles");
 
             migrationBuilder.DropTable(
-                name: "Encuestas");
+                name: "Ciudades");
 
             migrationBuilder.DropTable(
-                name: "Ciudades");
+                name: "Encuestas");
         }
     }
 }

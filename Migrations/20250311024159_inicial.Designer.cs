@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jose_Estrella_P2_AP1.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250311004658_inicial")]
+    [Migration("20250311024159_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -24,6 +24,26 @@ namespace Jose_Estrella_P2_AP1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Encuestas", b =>
+                {
+                    b.Property<int>("EncuestasId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EncuestasId"));
+
+                    b.Property<string>("Asignatura")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("EncuestasId");
+
+                    b.ToTable("Encuestas");
+                });
 
             modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Ciudades", b =>
                 {
@@ -78,53 +98,22 @@ namespace Jose_Estrella_P2_AP1.Migrations
                     b.Property<int>("EncuestaId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EncuestasId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MontoEncuesta")
                         .HasColumnType("int");
 
                     b.HasKey("DestallesId");
 
-                    b.HasIndex("EncuestaId");
+                    b.HasIndex("CiudadId");
+
+                    b.HasIndex("EncuestasId");
 
                     b.ToTable("Destalles");
                 });
 
-            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Encuestas", b =>
-                {
-                    b.Property<int>("EncuestasId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EncuestasId"));
-
-                    b.Property<string>("Asignatura")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CiudadId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("EncuestasId");
-
-                    b.HasIndex("CiudadId");
-
-                    b.ToTable("Encuestas");
-                });
-
             modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.EncuestaDestalles", b =>
-                {
-                    b.HasOne("Jose_Estrella_P2_AP1.Models.Encuestas", "Encuesta")
-                        .WithMany("EncuestaDetalles")
-                        .HasForeignKey("EncuestaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Encuesta");
-                });
-
-            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Encuestas", b =>
                 {
                     b.HasOne("Jose_Estrella_P2_AP1.Models.Ciudades", "Ciudad")
                         .WithMany()
@@ -132,10 +121,14 @@ namespace Jose_Estrella_P2_AP1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Encuestas", null)
+                        .WithMany("EncuestaDetalles")
+                        .HasForeignKey("EncuestasId");
+
                     b.Navigation("Ciudad");
                 });
 
-            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Encuestas", b =>
+            modelBuilder.Entity("Encuestas", b =>
                 {
                     b.Navigation("EncuestaDetalles");
                 });

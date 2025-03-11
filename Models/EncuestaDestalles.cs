@@ -14,9 +14,6 @@ public class EncuestaDestalles
 
     public int MontoEncuesta { get; set; }
 
-    [ForeignKey("EncuestaId")]
-    public virtual Encuestas Encuesta { get; set; } = null!;
-
     [ForeignKey("CiudadId")]
     public virtual Ciudades Ciudad { get; set; } = null!;
 }
