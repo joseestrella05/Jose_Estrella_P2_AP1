@@ -14,11 +14,12 @@ public class Encuestas
     [Required(ErrorMessage = "La asignatura es obligatoria")]
     public string? Asignatura { get; set; }
 
+    public virtual ICollection<EncuestaDestalles> EncuestaDetalles { get; set; } = new List<EncuestaDestalles>();
     public int CiudadId { get; set; }
     [ForeignKey("CiudadId")]
     public virtual Ciudades Ciudad { get; set; } = null!;
 
-    public virtual List<EncuestaDestalles> Detalles { get; set; } = new List<EncuestaDestalles>();
+    
 
 
 }
