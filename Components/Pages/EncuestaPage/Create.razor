@@ -29,8 +29,6 @@
                     <InputText class="form-control" @bind-Value="Encuesta.Asignatura" />
                 </div>
 
-               
-
                 <div class="border border-success p-3 mt-3">
                     <h5>Detalles de la Encuesta</h5>
                     <CiudadPicker Ciudad="ListaCiudades"
@@ -51,7 +49,7 @@
                             @foreach (var detalle in Encuesta.EncuestaDetalles)
                             {
                                 <tr>
-                                    <td>@detalle.Ciudad?.Nombre ?? "Sin ciudad"</td>
+                                    <td>@detalle.Ciudad?.Nombre</td>
                                     <td>@detalle.MontoEncuesta</td>
                                     <td>
                                         <button type="button"
@@ -128,6 +126,7 @@
         var detalle = new EncuestaDestalles
             {
                 CiudadId = selection.ciudad.CiudadesId,
+                Ciudad = selection.ciudad, // Asignar el objeto Ciudad para mostrar el Nombre
                 MontoEncuesta = selection.monto
             };
 
@@ -140,8 +139,6 @@
     {
         try
         {
-          
-
             var paso = await EncuestaServices.Guardar(Encuesta);
 
             if (paso)
