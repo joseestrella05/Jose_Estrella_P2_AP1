@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jose_Estrella_P2_AP1.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250310224709_inicial")]
+    [Migration("20250311004658_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -64,6 +64,30 @@ namespace Jose_Estrella_P2_AP1.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.EncuestaDestalles", b =>
+                {
+                    b.Property<int>("DestallesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DestallesId"));
+
+                    b.Property<int>("CiudadId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EncuestaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MontoEncuesta")
+                        .HasColumnType("int");
+
+                    b.HasKey("DestallesId");
+
+                    b.HasIndex("EncuestaId");
+
+                    b.ToTable("Destalles");
+                });
+
             modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Encuestas", b =>
                 {
                     b.Property<int>("EncuestasId")
@@ -76,12 +100,44 @@ namespace Jose_Estrella_P2_AP1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CiudadId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
                     b.HasKey("EncuestasId");
 
+                    b.HasIndex("CiudadId");
+
                     b.ToTable("Encuestas");
+                });
+
+            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.EncuestaDestalles", b =>
+                {
+                    b.HasOne("Jose_Estrella_P2_AP1.Models.Encuestas", "Encuesta")
+                        .WithMany("EncuestaDetalles")
+                        .HasForeignKey("EncuestaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Encuesta");
+                });
+
+            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Encuestas", b =>
+                {
+                    b.HasOne("Jose_Estrella_P2_AP1.Models.Ciudades", "Ciudad")
+                        .WithMany()
+                        .HasForeignKey("CiudadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ciudad");
+                });
+
+            modelBuilder.Entity("Jose_Estrella_P2_AP1.Models.Encuestas", b =>
+                {
+                    b.Navigation("EncuestaDetalles");
                 });
 #pragma warning restore 612, 618
         }
