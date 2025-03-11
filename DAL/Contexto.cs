@@ -14,25 +14,25 @@ public class Contexto(DbContextOptions<Contexto> options) : DbContext(options)
         modelBuilder.Entity<Ciudades>().HasData(
             new List<Ciudades>()
             {
-                new()
-                {
-                    CiudadesId = 1,
-                    Nombre = "Santiago",
-                    Monto = 0,
+            new()
+            {
+                CiudadesId = 1,
+                Nombre = "Santiago",
+                Monto = 0,
 
-                },
-                new()
-                {
-                    CiudadesId = 2,
-                    Nombre = "Santo domingo",
-                    Monto = 0,
-                },
-                new()
-                {
-                    CiudadesId = 3,
-                    Nombre = "San Francisco de macoris",
-                    Monto = 0,
-                }
+            },
+            new()
+            {
+                CiudadesId = 2,
+                Nombre = "Santo domingo",
+                Monto = 0,
+            },
+            new()
+            {
+                CiudadesId = 3,
+                Nombre = "San Francisco de macoris",
+                Monto = 0,
+            }
 
             }
         );
